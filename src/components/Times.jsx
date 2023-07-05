@@ -66,8 +66,8 @@ export const Times = () => {
         longitude: parseFloat(longitude),
       },
       {
-        latitude: -6.8979622,
-        longitude: 107.6242252,
+        latitude: -6.9015283,
+        longitude: 107.6109716,
       }
     );
 

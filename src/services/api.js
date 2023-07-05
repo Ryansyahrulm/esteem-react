@@ -3,7 +3,7 @@ import axios from "./axios";
 export const getUser = () => {
   return axios.get("/siswa/profile", {
     headers: {
-      token: localStorage.getItem("token"),
+      Authorization: `Bearer ${localStorage.token}`,
     },
   });
 };
@@ -11,7 +11,7 @@ export const getUser = () => {
 export const getAttendance = () => {
   return axios.get("/kehadiran/history", {
     headers: {
-      token: localStorage.getItem("token"),
+      Authorization: `Bearer ${localStorage.token}`,
     },
   });
 };
@@ -21,8 +21,8 @@ export const attendanceIn = (formData) => {
     mode: "no-cors",
     headers: {
       "Access-Control-Allow-Origin": "*",
-      token: localStorage.token,
       "Content-Type": "multipart/form-data",
+      Authorization: `Bearer ${localStorage.token}`,
     },
   });
 };
@@ -31,8 +31,8 @@ export const attendanceOut = (formData) => {
   return axios.put("/kehadiran", formData, {
     headers: {
       "Access-Control-Allow-Origin": "*",
-      token: localStorage.token,
       "Content-Type": "multipart/form-data",
+      Authorization: `Bearer ${localStorage.token}`,
     },
   });
 };

@@ -1,8 +1,8 @@
 import axios from "./axios";
 
-export const authLogin = (nisLogin, password) => {
+export const authLogin = (nis, password) => {
   return axios.post("/login/siswa", {
-    nisLogin,
+    nis,
     password,
   });
 };

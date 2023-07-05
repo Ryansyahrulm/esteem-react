@@ -30,7 +30,7 @@ const Login = () => {
     setLoading(true);
     try {
       const response = await authLogin(nis, password);
-      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("token", response.data.credentials);
       navigate("/");
     } catch (error) {
       console.log(error);

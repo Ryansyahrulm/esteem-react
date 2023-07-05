@@ -5,16 +5,18 @@ import {
   RiListUnordered,
   RiUser3Fill,
 } from "react-icons/ri";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Box, Icon, Text, Flex, Image, Input } from "@chakra-ui/react";
 import "@/assets/style.css";
 import { NavLink, useLocation } from "react-router-dom";
 import { attendanceIn, attendanceOut } from "@/services";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import useUserStore from "@/store/userStore";
 
 export const Navbar = () => {
   const [currentTime, setCurrentTime] = useState(new Date());
+  const user = useUserStore((state) => state.distance);
   const fileInputRef = useRef();
   const isActive = (path) => {
     const location = useLocation();
@@ -27,42 +29,42 @@ export const Navbar = () => {
       const data = {
         file: fileInputRef.current.files[0],
       };
-      // const response = await attendanceIn(data);
-      // toast.success(response.data.message, {
-      //   position: "top-center",
-      //   autoClose: 5000,
-      //   hideProgressBar: false,
-      //   closeOnClick: true,
-      //   pauseOnHover: true,
-      //   draggable: true,
-      //   progress: undefined,
-      //   theme: "light",
-      // });
-      if (new Date().getHours() <= 9) {
-        const response = await attendanceIn(data);
-        toast.success(response.data.message, {
-          position: "top-center",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-      } else if (new Date().getHours() >= 16 && new Date().getHours() <= 21) {
-        const response = await attendanceOut(data);
-        toast.success(response.data.message, {
-          position: "top-center",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-      }
+      const response = await attendanceIn(data);
+      toast.success(response.data.message, {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      // if (new Date().getHours() <= 9) {
+      //   const response = await attendanceIn(data);
+      //   toast.success(response.data.message, {
+      //     position: "top-center",
+      //     autoClose: 5000,
+      //     hideProgressBar: false,
+      //     closeOnClick: true,
+      //     pauseOnHover: true,
+      //     draggable: true,
+      //     progress: undefined,
+      //     theme: "light",
+      //   });
+      // } else if (new Date().getHours() >= 16 && new Date().getHours() <= 21) {
+      //   const response = await attendanceOut(data);
+      //   toast.success(response.data.message, {
+      //     position: "top-center",
+      //     autoClose: 5000,
+      //     hideProgressBar: false,
+      //     closeOnClick: true,
+      //     pauseOnHover: true,
+      //     draggable: true,
+      //     progress: undefined,
+      //     theme: "light",
+      //   });
+      // }
       console.log(data);
     } catch (error) {
       toast.error(error.response.data.message, {
@@ -77,6 +79,10 @@ export const Navbar = () => {
       });
     }
   };
+
+  useEffect(() => {
+    console.log(user);
+  }, []);
 
   return (
     <>
